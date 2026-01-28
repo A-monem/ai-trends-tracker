@@ -1,0 +1,57 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "description": "Pre-commit quality gate - runs TypeScript check, linting, and tests before git commits",
+        "matcher": "Bash.*git commit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-commit-lint.sh",
+            "timeout": 120000,
+            "description": "Run quality checks before commit"
+          }
+        ]
+      },
+      {
+        "description": "Database migration validator - ensures migrations are safe before execution",
+        "matcher": "Bash.*(db:migrate|migration)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 $CLAUDE_PROJECT_DIR/.claude/hooks/validate-migration.py",
+            "timeout": 30000,
+            "description": "Validate database migration safety"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "description": "Auto-format TypeScript files after edit or write",
+        "matcher": "(Edit|Write)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/format-file.sh",
+            "timeout": 30000,
+            "description": "Format file with Prettier"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "description": "Load test status at session start",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/load-test-status.sh",
+            "timeout": 45000,
+            "description": "Run tests and load status into context"
+          }
+        ]
+      }
+    ]
+  }
+}
