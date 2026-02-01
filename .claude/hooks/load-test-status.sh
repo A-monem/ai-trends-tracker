@@ -39,12 +39,12 @@ else
 fi
 
 # Backend status
-if [ -d "apps/backend" ]; then
+if [ -d "backend" ]; then
   echo ""
   echo "📦 Backend Status:"
   echo "-----------------"
 
-  cd apps/backend
+  cd backend
 
   # Check if dependencies are installed
   if [ ! -d "node_modules" ]; then
@@ -78,12 +78,12 @@ if [ -d "apps/backend" ]; then
 fi
 
 # Frontend status
-if [ -d "apps/frontend" ]; then
+if [ -d "frontend" ]; then
   echo ""
   echo "🎨 Frontend Status:"
   echo "------------------"
 
-  cd apps/frontend
+  cd frontend
 
   # Check if dependencies are installed
   if [ ! -d "node_modules" ]; then
@@ -107,10 +107,10 @@ echo ""
 echo "🗄️  Database Status:"
 echo "------------------"
 
-if [ -f "apps/backend/.env" ]; then
+if [ -f "backend/.env" ]; then
   # Check if DATABASE_URL is set
-  if grep -q "^DATABASE_URL=" apps/backend/.env; then
-    DATABASE_URL=$(grep "^DATABASE_URL=" apps/backend/.env | cut -d'=' -f2-)
+  if grep -q "^DATABASE_URL=" backend/.env; then
+    DATABASE_URL=$(grep "^DATABASE_URL=" backend/.env | cut -d'=' -f2-)
 
     # Check if it's PostgreSQL
     if [[ "$DATABASE_URL" == postgresql://* ]]; then
@@ -137,7 +137,7 @@ if [ -f "apps/backend/.env" ]; then
     elif [[ "$DATABASE_URL" == file:* ]]; then
       echo "📁 SQLite configured"
       DB_FILE=$(echo "$DATABASE_URL" | sed 's/file://')
-      if [ -f "apps/backend/$DB_FILE" ]; then
+      if [ -f "backend/$DB_FILE" ]; then
         echo "✅ Database file exists"
       else
         echo "⚠️  Database file not found (run migrations?)"
@@ -147,7 +147,7 @@ if [ -f "apps/backend/.env" ]; then
     echo "⚠️  DATABASE_URL not set in .env"
   fi
 else
-  echo "⚠️  .env file not found in apps/backend/"
+  echo "⚠️  .env file not found in backend/"
 fi
 
 # API Keys status
@@ -155,13 +155,13 @@ echo ""
 echo "🔑 API Keys Status:"
 echo "------------------"
 
-if [ -f "apps/backend/.env" ]; then
+if [ -f "backend/.env" ]; then
   # Check for required API keys
   KEYS_FOUND=0
   KEYS_MISSING=0
 
   for key in "ANTHROPIC_API_KEY" "YOUTUBE_API_KEY"; do
-    if grep -q "^$key=" apps/backend/.env; then
+    if grep -q "^$key=" backend/.env; then
       KEYS_FOUND=$((KEYS_FOUND + 1))
     else
       KEYS_MISSING=$((KEYS_MISSING + 1))
@@ -182,10 +182,10 @@ fi
 echo ""
 echo "📂 Project Structure:"
 echo "--------------------"
-if [ -d "apps/backend" ]; then
+if [ -d "backend" ]; then
   echo "✅ Backend exists"
 fi
-if [ -d "apps/frontend" ]; then
+if [ -d "frontend" ]; then
   echo "✅ Frontend exists"
 fi
 if [ -d ".claude/skills" ]; then

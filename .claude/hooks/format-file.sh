@@ -27,13 +27,13 @@ if [[ "$FILE_PATH" =~ \.(ts|tsx|js|jsx|json)$ ]]; then
   # Determine which Prettier to use (backend or frontend)
   PROJECT_DIR="/Users/abdelmoneimnafea/Documents/Personal/Projects/ai-trends-tracker"
 
-  if [[ "$FILE_PATH" == *"apps/backend"* ]]; then
-    PRETTIER_DIR="$PROJECT_DIR/apps/backend"
-  elif [[ "$FILE_PATH" == *"apps/frontend"* ]]; then
-    PRETTIER_DIR="$PROJECT_DIR/apps/frontend"
+  if [[ "$FILE_PATH" == *"backend"* ]]; then
+    PRETTIER_DIR="$PROJECT_DIR/backend"
+  elif [[ "$FILE_PATH" == *"frontend"* ]]; then
+    PRETTIER_DIR="$PROJECT_DIR/frontend"
   else
     # Default to backend
-    PRETTIER_DIR="$PROJECT_DIR/apps/backend"
+    PRETTIER_DIR="$PROJECT_DIR/backend"
   fi
 
   # Check if node_modules exists

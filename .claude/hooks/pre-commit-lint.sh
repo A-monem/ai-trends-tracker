@@ -22,12 +22,12 @@ cd "$PROJECT_DIR"
 FAILED=0
 
 # Backend checks
-if [ -d "apps/backend" ]; then
+if [ -d "backend" ]; then
   echo ""
   echo "📦 Backend Checks"
   echo "----------------"
 
-  cd apps/backend
+  cd backend
 
   # Check if node_modules exists
   if [ ! -d "node_modules" ]; then
@@ -66,12 +66,12 @@ if [ -d "apps/backend" ]; then
 fi
 
 # Frontend checks
-if [ -d "apps/frontend" ]; then
+if [ -d "frontend" ]; then
   echo ""
   echo "🎨 Frontend Checks"
   echo "-----------------"
 
-  cd apps/frontend
+  cd frontend
 
   # Check if node_modules exists
   if [ ! -d "node_modules" ]; then
