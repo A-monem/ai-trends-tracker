@@ -9,14 +9,16 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 1.1 Development Environment
 
 #### 1.1.1 Prerequisites Verification
-- [ ] Verify Node.js >= 20.x installed (`node --version`)
-- [ ] Verify npm >= 10.x installed (`npm --version`)
-- [ ] Verify Git installed and configured (`git --version`)
+
+- [x] Verify Node.js >= 20.x installed (`node --version`)
+- [x] Verify npm >= 10.x installed (`npm --version`)
+- [x] Verify Git installed and configured (`git --version`)
 
 #### 1.1.2 Project Initialization
-- [ ] Initialize Git repository (if not already done)
-- [ ] Create `.gitignore` with Node.js, environment files, and IDE-specific entries
-- [ ] Create project root structure:
+
+- [x] Initialize Git repository (if not already done)
+- [x] Create `.gitignore` with Node.js, environment files, and IDE-specific entries
+- [x] Create project root structure:
   ```
   ai-trends-tracker/
   ├── backend/
@@ -28,6 +30,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 1.2 External Services & API Keys
 
 #### 1.2.1 Supabase Setup (Database)
+
 - [ ] Create Supabase account at [supabase.com](https://supabase.com)
 - [ ] Create new project `ai-trends-tracker-dev`
 - [ ] Set and securely store database password
@@ -37,12 +40,14 @@ This document provides a detailed, step-by-step implementation guide for buildin
 - [ ] Document connection strings in password manager
 
 #### 1.2.2 Anthropic API Setup (Claude)
+
 - [ ] Create Anthropic account at [console.anthropic.com](https://console.anthropic.com)
 - [ ] Generate API key
 - [ ] Store API key securely → `ANTHROPIC_API_KEY`
 - [ ] Note: Claude 3.5 Haiku model ID: `claude-3-5-haiku-20241022`
 
 #### 1.2.3 Vercel Setup (Deployment - Optional for MVP)
+
 - [ ] Create Vercel account at [vercel.com](https://vercel.com)
 - [ ] Link GitHub repository
 - [ ] Note: Detailed deployment configuration in Phase 3
@@ -50,6 +55,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 1.3 Backend Project Setup
 
 #### 1.3.1 Initialize Backend
+
 - [ ] Create `backend/` directory structure:
   ```
   backend/
@@ -76,6 +82,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 1.3.2 TypeScript Configuration
+
 - [ ] Create `tsconfig.json`:
   ```json
   {
@@ -101,7 +108,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 1.3.3 Environment Configuration
+
 - [ ] Create `backend/.env.example`:
+
   ```env
   # Database (Supabase)
   DATABASE_URL=postgresql://postgres.[ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres?pgbouncer=true
@@ -114,9 +123,11 @@ This document provides a detailed, step-by-step implementation guide for buildin
   PORT=3001
   NODE_ENV=development
   ```
+
 - [ ] Create `backend/.env` with actual values (do NOT commit)
 
 #### 1.3.4 Package.json Scripts
+
 - [ ] Add scripts to `package.json`:
   ```json
   {
@@ -137,6 +148,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 1.4 Frontend Project Setup
 
 #### 1.4.1 Initialize Frontend with Vite
+
 - [ ] Create Vite React project:
   ```bash
   npm create vite@latest frontend -- --template react-ts
@@ -150,20 +162,18 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 1.4.2 Tailwind CSS Configuration
+
 - [ ] Initialize Tailwind: `npx tailwindcss init -p`
 - [ ] Configure `tailwind.config.js`:
   ```javascript
   /** @type {import('tailwindcss').Config} */
   export default {
-    content: [
-      "./index.html",
-      "./src/**/*.{js,ts,jsx,tsx}",
-    ],
+    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
       extend: {},
     },
     plugins: [],
-  }
+  };
   ```
 - [ ] Update `src/index.css`:
   ```css
@@ -173,6 +183,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 1.4.3 Frontend Environment
+
 - [ ] Create `frontend/.env.example`:
   ```env
   VITE_API_URL=http://localhost:3001/api
@@ -180,6 +191,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 - [ ] Create `frontend/.env` with actual values
 
 #### 1.4.4 Frontend Project Structure
+
 - [ ] Create directory structure:
   ```
   frontend/src/
@@ -195,7 +207,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 1.5 Database Schema Setup
 
 #### 1.5.1 Prisma Initialization
+
 - [ ] Create `backend/src/prisma/schema.prisma` with MVP schema:
+
   ```prisma
   generator client {
     provider = "prisma-client-js"
@@ -262,58 +276,64 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 1.5.2 Database Migration
+
 - [ ] Generate Prisma client: `npm run db:generate`
 - [ ] Push schema to database: `npm run db:push`
 - [ ] Verify tables created in Supabase dashboard
 
 #### 1.5.3 Seed Data
+
 - [ ] Create `backend/src/prisma/seed.ts`:
+
   ```typescript
-  import { PrismaClient } from '@prisma/client';
+  import { PrismaClient } from "@prisma/client";
 
   const prisma = new PrismaClient();
 
   const sources = [
     {
-      name: 'TechCrunch AI',
-      slug: 'techcrunch-ai',
-      feedUrl: 'https://techcrunch.com/category/artificial-intelligence/feed/',
-      websiteUrl: 'https://techcrunch.com/category/artificial-intelligence/',
+      name: "TechCrunch AI",
+      slug: "techcrunch-ai",
+      feedUrl: "https://techcrunch.com/category/artificial-intelligence/feed/",
+      websiteUrl: "https://techcrunch.com/category/artificial-intelligence/",
     },
     {
-      name: 'VentureBeat AI',
-      slug: 'venturebeat-ai',
-      feedUrl: 'https://venturebeat.com/category/ai/feed/',
-      websiteUrl: 'https://venturebeat.com/category/ai/',
+      name: "VentureBeat AI",
+      slug: "venturebeat-ai",
+      feedUrl: "https://venturebeat.com/category/ai/feed/",
+      websiteUrl: "https://venturebeat.com/category/ai/",
     },
     {
-      name: 'MIT Technology Review',
-      slug: 'mit-tech-review',
-      feedUrl: 'https://www.technologyreview.com/topic/artificial-intelligence/feed',
-      websiteUrl: 'https://www.technologyreview.com/topic/artificial-intelligence/',
+      name: "MIT Technology Review",
+      slug: "mit-tech-review",
+      feedUrl:
+        "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+      websiteUrl:
+        "https://www.technologyreview.com/topic/artificial-intelligence/",
     },
     {
-      name: 'The Verge AI',
-      slug: 'verge-ai',
-      feedUrl: 'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml',
-      websiteUrl: 'https://www.theverge.com/ai-artificial-intelligence',
+      name: "The Verge AI",
+      slug: "verge-ai",
+      feedUrl:
+        "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+      websiteUrl: "https://www.theverge.com/ai-artificial-intelligence",
     },
     {
-      name: 'Ars Technica AI',
-      slug: 'ars-technica-ai',
-      feedUrl: 'https://feeds.arstechnica.com/arstechnica/features',
-      websiteUrl: 'https://arstechnica.com/',
+      name: "Ars Technica AI",
+      slug: "ars-technica-ai",
+      feedUrl: "https://feeds.arstechnica.com/arstechnica/features",
+      websiteUrl: "https://arstechnica.com/",
     },
     {
-      name: 'Wired AI',
-      slug: 'wired-ai',
-      feedUrl: 'https://www.wired.com/feed/tag/ai/latest/rss',
-      websiteUrl: 'https://www.wired.com/tag/ai/',
+      name: "Wired AI",
+      slug: "wired-ai",
+      feedUrl: "https://www.wired.com/feed/tag/ai/latest/rss",
+      websiteUrl: "https://www.wired.com/tag/ai/",
     },
   ];
 
   async function main() {
-    console.log('Seeding sources...');
+    console.log("Seeding sources...");
 
     for (const source of sources) {
       await prisma.source.upsert({
@@ -323,7 +343,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
       });
     }
 
-    console.log('Seeding complete!');
+    console.log("Seeding complete!");
   }
 
   main()
@@ -335,6 +355,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
       await prisma.$disconnect();
     });
   ```
+
 - [ ] Run seed: `npm run db:seed`
 - [ ] Verify sources in database via Prisma Studio: `npm run db:studio`
 
@@ -354,6 +375,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 2.1 Core Infrastructure
 
 #### 2.1.1 Express Application Setup
+
 - [ ] Create `backend/src/app.ts`:
   - Initialize Express app
   - Configure CORS middleware
@@ -363,6 +385,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Export app instance
 
 #### 2.1.2 Server Entry Point
+
 - [ ] Create `backend/src/server.ts`:
   - Import app from `app.ts`
   - Configure port from environment
@@ -370,18 +393,21 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Handle graceful shutdown
 
 #### 2.1.3 Prisma Client Singleton
+
 - [ ] Create `backend/src/utils/prisma.ts`:
   - Create singleton Prisma client instance
   - Handle connection in development (prevent multiple instances)
   - Export prisma client
 
 #### 2.1.4 Logger Utility
+
 - [ ] Create `backend/src/utils/logger.ts`:
   - Create simple console logger with timestamps
   - Support log levels: info, warn, error, debug
   - Format: `[TIMESTAMP] [LEVEL] message`
 
 #### 2.1.5 Hash Utility
+
 - [ ] Create `backend/src/utils/hash.ts`:
   - Create `generateContentHash(url: string, title: string): string`
   - Use SHA-256 for deduplication
@@ -389,7 +415,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 2.2 Zod Validation Schemas
 
 #### 2.2.1 API Schemas
+
 - [ ] Create `backend/src/schemas/api.schemas.ts`:
+
   ```typescript
   // Query parameter schemas
   - ArticleQuerySchema: { source?: string, page?: number, limit?: number }
@@ -406,6 +434,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 2.3 Middleware
 
 #### 2.3.1 Validation Middleware
+
 - [ ] Create `backend/src/middleware/validation.middleware.ts`:
   - `validateQuery(schema)` - validates request query params
   - `validateParams(schema)` - validates route params
@@ -413,6 +442,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Return 400 with Zod errors on validation failure
 
 #### 2.3.2 Error Handling Middleware
+
 - [ ] Create `backend/src/middleware/error.middleware.ts`:
   - Global error handler
   - Format errors consistently: `{ success: false, error: { code, message } }`
@@ -422,7 +452,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 2.4 Services Layer
 
 #### 2.4.1 RSS Service
+
 - [ ] Create `backend/src/services/rss.service.ts`:
+
   ```typescript
   interface RSSItem {
     title: string;
@@ -439,7 +471,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 2.4.2 Scraper Service
+
 - [ ] Create `backend/src/services/scraper.service.ts`:
+
   ```typescript
   interface ScrapedArticle {
     title: string;
@@ -470,7 +504,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 2.4.3 Summarizer Service
+
 - [ ] Create `backend/src/services/summarizer.service.ts`:
+
   ```typescript
   async function summarizeArticle(content: string): Promise<string>
   - Initialize Anthropic client
@@ -490,7 +526,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 2.5 Controllers
 
 #### 2.5.1 Articles Controller
+
 - [ ] Create `backend/src/controllers/articles.controller.ts`:
+
   ```typescript
   async function listArticles(req, res)
   - Parse query params: source (slug), page (default 1), limit (default 20)
@@ -506,6 +544,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 2.5.2 Sources Controller
+
 - [ ] Create `backend/src/controllers/sources.controller.ts`:
   ```typescript
   async function listSources(req, res)
@@ -515,7 +554,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 2.5.3 Refresh Controller
+
 - [ ] Create `backend/src/controllers/refresh.controller.ts`:
+
   ```typescript
   async function triggerRefresh(req, res)
   - Create fetch record with status 'running'
@@ -533,7 +574,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 2.6 Routes
 
 #### 2.6.1 Route Definitions
+
 - [ ] Create `backend/src/routes/index.ts`:
+
   ```typescript
   // Articles routes
   GET  /api/articles      → articlesController.listArticles
@@ -546,29 +589,33 @@ This document provides a detailed, step-by-step implementation guide for buildin
   POST /api/refresh       → refreshController.triggerRefresh
   GET  /api/refresh/status → refreshController.getRefreshStatus
   ```
+
 - [ ] Apply validation middleware to routes
 - [ ] Register routes in app.ts
 
 ### 2.7 Testing
 
 #### 2.7.1 Test Setup
+
 - [ ] Create `backend/vitest.config.ts`:
+
   ```typescript
-  import { defineConfig } from 'vitest/config';
+  import { defineConfig } from "vitest/config";
 
   export default defineConfig({
     test: {
       globals: true,
-      environment: 'node',
-      include: ['tests/**/*.test.ts'],
+      environment: "node",
+      include: ["tests/**/*.test.ts"],
       coverage: {
-        reporter: ['text', 'json', 'html'],
+        reporter: ["text", "json", "html"],
       },
     },
   });
   ```
 
 #### 2.7.2 Unit Tests
+
 - [ ] Create `backend/tests/services/rss.service.test.ts`:
   - Test feed parsing
   - Test error handling for invalid feeds
@@ -583,6 +630,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Test unique hashes for different inputs
 
 #### 2.7.3 Integration Tests
+
 - [ ] Create `backend/tests/controllers/articles.controller.test.ts`:
   - Test GET /api/articles (pagination, filtering)
   - Test GET /api/articles/:id (found, not found)
@@ -610,6 +658,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 3.1 Core Setup
 
 #### 3.1.1 API Client
+
 - [ ] Create `frontend/src/services/api.ts`:
   ```typescript
   - Create Axios instance with baseURL from env
@@ -623,7 +672,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 3.1.2 TypeScript Types
+
 - [ ] Create `frontend/src/types/index.ts`:
+
   ```typescript
   interface Source {
     id: string;
@@ -655,7 +706,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
   interface RefreshStatus {
     id: string;
-    status: 'pending' | 'running' | 'completed' | 'failed';
+    status: "pending" | "running" | "completed" | "failed";
     articlesFound: number;
     articlesNew: number;
     startedAt: string;
@@ -664,6 +715,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 3.1.3 React Query Setup
+
 - [ ] Update `frontend/src/main.tsx`:
   - Create QueryClient instance
   - Wrap App with QueryClientProvider
@@ -672,6 +724,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 3.2 Custom Hooks
 
 #### 3.2.1 useArticles Hook
+
 - [ ] Create `frontend/src/hooks/useArticles.ts`:
   ```typescript
   function useArticles(params: { source?: string; page?: number; limit?: number })
@@ -681,6 +734,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 3.2.2 useSources Hook
+
 - [ ] Create `frontend/src/hooks/useSources.ts`:
   ```typescript
   function useSources()
@@ -690,6 +744,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 3.2.3 useRefresh Hook
+
 - [ ] Create `frontend/src/hooks/useRefresh.ts`:
   ```typescript
   function useRefresh()
@@ -702,6 +757,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 3.3 Components
 
 #### 3.3.1 Header Component
+
 - [ ] Create `frontend/src/components/Header.tsx`:
   - App title: "AI Trends Tracker"
   - RefreshButton component placement
@@ -709,6 +765,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Responsive layout
 
 #### 3.3.2 SourceFilter Component
+
 - [ ] Create `frontend/src/components/SourceFilter.tsx`:
   - Display "All Sources" button (default)
   - Display button for each source
@@ -717,6 +774,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Horizontal scrollable on mobile
 
 #### 3.3.3 ArticleCard Component
+
 - [ ] Create `frontend/src/components/ArticleCard.tsx`:
   - Display article title
   - Display source name with icon/badge
@@ -726,6 +784,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Hover state indication
 
 #### 3.3.4 ArticleGrid Component
+
 - [ ] Create `frontend/src/components/ArticleGrid.tsx`:
   - Responsive grid: 1 col mobile, 2 cols tablet, 3 cols desktop
   - Map articles to ArticleCard components
@@ -733,6 +792,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Handle loading state: skeleton cards
 
 #### 3.3.5 ArticleModal Component
+
 - [ ] Create `frontend/src/components/ArticleModal.tsx`:
   - Full article summary display
   - Article title as heading
@@ -742,6 +802,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Keyboard accessible (Escape to close)
 
 #### 3.3.6 RefreshButton Component
+
 - [ ] Create `frontend/src/components/RefreshButton.tsx`:
   - "Refresh" button with icon
   - Loading spinner while refreshing
@@ -750,6 +811,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Toast/notification on completion
 
 #### 3.3.7 Pagination Component
+
 - [ ] Create `frontend/src/components/Pagination.tsx`:
   - Previous/Next buttons
   - Page number display: "Page X of Y"
@@ -759,6 +821,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 3.4 Main App Layout
 
 #### 3.4.1 App Component
+
 - [ ] Update `frontend/src/App.tsx`:
   ```tsx
   - State: selectedSource, currentPage
@@ -791,6 +854,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 3.5 Styling
 
 #### 3.5.1 Base Styles
+
 - [ ] Update `frontend/src/index.css`:
   - CSS reset/normalize via Tailwind
   - Custom font (Inter or system fonts)
@@ -798,6 +862,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Utility classes for common patterns
 
 #### 3.5.2 Component Styling
+
 - [ ] Style each component using Tailwind classes:
   - Consistent spacing scale
   - Card shadows and borders
@@ -808,27 +873,30 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 3.6 Testing
 
 #### 3.6.1 Test Setup
+
 - [ ] Create `frontend/vitest.config.ts`:
+
   ```typescript
-  import { defineConfig } from 'vitest/config';
-  import react from '@vitejs/plugin-react';
+  import { defineConfig } from "vitest/config";
+  import react from "@vitejs/plugin-react";
 
   export default defineConfig({
     plugins: [react()],
     test: {
       globals: true,
-      environment: 'jsdom',
-      setupFiles: './tests/setup.ts',
+      environment: "jsdom",
+      setupFiles: "./tests/setup.ts",
     },
   });
   ```
 
 - [ ] Create `frontend/tests/setup.ts`:
   ```typescript
-  import '@testing-library/jest-dom';
+  import "@testing-library/jest-dom";
   ```
 
 #### 3.6.2 Component Tests
+
 - [ ] Create `frontend/tests/components/ArticleCard.test.tsx`:
   - Renders article title
   - Renders source name
@@ -848,6 +916,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 3.7 Deployment Preparation
 
 #### 3.7.1 Backend Vercel Configuration
+
 - [ ] Create `backend/vercel.json`:
   ```json
   {
@@ -868,6 +937,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 3.7.2 Environment Variables (Production)
+
 - [ ] Configure in Vercel dashboard:
   - `DATABASE_URL` - Supabase pooled connection
   - `DIRECT_URL` - Supabase direct connection
@@ -875,6 +945,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - `NODE_ENV=production`
 
 #### 3.7.3 Frontend Production Build
+
 - [ ] Test production build: `npm run build`
 - [ ] Test preview: `npm run preview`
 - [ ] Configure `VITE_API_URL` for production
@@ -901,7 +972,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 4.1 Database Schema Updates
 
 #### 4.1.1 Add Content Type Field
+
 - [ ] Update Prisma schema:
+
   ```prisma
   model Article {
     // ... existing fields
@@ -915,12 +988,15 @@ This document provides a detailed, step-by-step implementation guide for buildin
     channelId String? @map("channel_id") @db.VarChar(50)  // For YouTube
   }
   ```
+
 - [ ] Run migration: `npx prisma db push`
 
 ### 4.2 YouTube Integration
 
 #### 4.2.1 YouTube Service
+
 - [ ] Create `backend/src/services/youtube.service.ts`:
+
   ```typescript
   async function getChannelVideos(channelId: string, maxResults: number)
   - Use YouTube Data API v3
@@ -942,6 +1018,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 4.2.2 YouTube Sources Seed
+
 - [ ] Add YouTube sources to seed:
   ```typescript
   {
@@ -962,6 +1039,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 4.2.3 Environment Variables
+
 - [ ] Add to `.env.example`:
   ```env
   YOUTUBE_API_KEY=AIza...
@@ -970,7 +1048,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 4.3 Hacker News Integration
 
 #### 4.3.1 Hacker News Service
+
 - [ ] Create `backend/src/services/hackernews.service.ts`:
+
   ```typescript
   const AI_KEYWORDS = ['ai', 'llm', 'gpt', 'claude', 'openai', ...]
 
@@ -989,6 +1069,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 4.3.2 Hacker News Source Seed
+
 - [ ] Add HN source to seed:
   ```typescript
   {
@@ -1002,7 +1083,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 4.4 Reddit Integration
 
 #### 4.4.1 Reddit Service
+
 - [ ] Create `backend/src/services/reddit.service.ts`:
+
   ```typescript
   const SUBREDDITS = ['MachineLearning', 'artificial', 'LocalLLaMA']
 
@@ -1025,6 +1108,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 4.4.2 Reddit Sources Seed
+
 - [ ] Add Reddit sources to seed:
   ```typescript
   {
@@ -1039,6 +1123,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 4.5 Automated Refresh (Cron Jobs)
 
 #### 4.5.1 Cron Endpoint
+
 - [ ] Create `backend/src/routes/cron.ts`:
   ```typescript
   POST /api/cron/refresh
@@ -1049,6 +1134,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 4.5.2 Vercel Cron Configuration
+
 - [ ] Update `backend/vercel.json`:
   ```json
   {
@@ -1062,6 +1148,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 4.5.3 Environment Variables
+
 - [ ] Add to `.env.example`:
   ```env
   CRON_SECRET=your-secure-secret
@@ -1070,6 +1157,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 4.6 Update Scraper Service
 
 #### 4.6.1 Unified Refresh
+
 - [ ] Update `backend/src/services/scraper.service.ts`:
   ```typescript
   async function refreshAllSources(): Promise<RefreshResult>
@@ -1084,20 +1172,23 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 4.7 Frontend Updates
 
 #### 4.7.1 Content Type Filter
+
 - [ ] Add type filter to SourceFilter component:
   - "All" | "Articles" | "Videos" | "Discussions"
   - Pass type param to API
 
 #### 4.7.2 Video Card Variant
+
 - [ ] Update ArticleCard for video type:
   - YouTube thumbnail display
   - Play icon overlay
   - Video duration badge
 
 #### 4.7.3 Update API Client
+
 - [ ] Add type parameter to getArticles:
   ```typescript
-  getArticles({ source, type, page, limit })
+  getArticles({ source, type, page, limit });
   ```
 
 ### 4.8 Phase 4 Verification Checklist
@@ -1120,7 +1211,9 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 5.1 Database Schema Updates
 
 #### 5.1.1 Add V2 Fields and Tables
+
 - [ ] Update Prisma schema:
+
   ```prisma
   model Article {
     // ... existing fields
@@ -1171,12 +1264,15 @@ This document provides a detailed, step-by-step implementation guide for buildin
     @@map("read_history")
   }
   ```
+
 - [ ] Run migration: `npx prisma db push`
 
 ### 5.2 Search Functionality
 
 #### 5.2.1 Full-Text Search Setup
+
 - [ ] Add PostgreSQL full-text search (raw SQL migration):
+
   ```sql
   ALTER TABLE articles ADD COLUMN search_vector tsvector;
   CREATE INDEX idx_articles_search ON articles USING GIN(search_vector);
@@ -1195,6 +1291,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 5.2.2 Search Endpoint
+
 - [ ] Create `GET /api/articles/search`:
   ```typescript
   - Parse query params: q, page, limit
@@ -1203,6 +1300,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 5.2.3 Search UI Component
+
 - [ ] Create `frontend/src/components/SearchBar.tsx`:
   - Text input with search icon
   - Debounced input (300ms)
@@ -1210,6 +1308,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   - Loading indicator
 
 #### 5.2.4 useSearch Hook
+
 - [ ] Create `frontend/src/hooks/useSearch.ts`:
   - Query enabled when search term >= 2 chars
   - Cache results for 1 minute
@@ -1218,11 +1317,12 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 5.3 Advanced Filtering
 
 #### 5.3.1 Filter Schema Update
+
 - [ ] Update `backend/src/schemas/api.schemas.ts`:
   ```typescript
   ArticleFilterSchema = z.object({
     source: z.string().optional(),
-    type: z.enum(['article', 'video', 'discussion']).optional(),
+    type: z.enum(["article", "video", "discussion"]).optional(),
     category: z.string().optional(),
     from: z.string().datetime().optional(),
     to: z.string().datetime().optional(),
@@ -1233,11 +1333,13 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 5.3.2 Update Articles Controller
+
 - [ ] Enhance `listArticles` with all filters:
   - Build dynamic Prisma where clause
   - Support comma-separated values for multi-select
 
 #### 5.3.3 Filter Panel Component
+
 - [ ] Create `frontend/src/components/FilterPanel.tsx`:
   - Category multi-select
   - Date range picker
@@ -1247,15 +1349,17 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 5.4 Content Categorization
 
 #### 5.4.1 Update Summarizer Service
+
 - [ ] Enhance Claude prompt to return category:
   ```typescript
   async function categorizeAndSummarize(content: string): Promise<{
     summary: string;
-    category: 'News' | 'Research' | 'Tutorial' | 'Opinion' | 'Tool';
-  }>
+    category: "News" | "Research" | "Tutorial" | "Opinion" | "Tool";
+  }>;
   ```
 
 #### 5.4.2 Category Badges
+
 - [ ] Update ArticleCard with category badge:
   - Color-coded by category
   - Display in card header
@@ -1263,30 +1367,38 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 5.5 Dark Mode
 
 #### 5.5.1 Tailwind Dark Mode Setup
+
 - [ ] Update `tailwind.config.js`:
   ```javascript
   module.exports = {
-    darkMode: 'class',
+    darkMode: "class",
     // ...
-  }
+  };
   ```
 
 #### 5.5.2 Theme Toggle Component
+
 - [ ] Create `frontend/src/components/ThemeToggle.tsx`:
   - Light/Dark/System options
   - Persist preference to localStorage
   - Update document class
 
 #### 5.5.3 Dark Mode Styles
+
 - [ ] Add dark variants to all components:
   ```css
-  .card { @apply bg-white dark:bg-gray-800; }
-  .text { @apply text-gray-900 dark:text-gray-100; }
+  .card {
+    @apply bg-white dark:bg-gray-800;
+  }
+  .text {
+    @apply text-gray-900 dark:text-gray-100;
+  }
   ```
 
 ### 5.6 Bookmarks (Local Storage MVP)
 
 #### 5.6.1 useBookmarks Hook
+
 - [ ] Create `frontend/src/hooks/useBookmarks.ts`:
   ```typescript
   function useBookmarks()
@@ -1298,12 +1410,14 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 5.6.2 Bookmark Button Component
+
 - [ ] Create `frontend/src/components/BookmarkButton.tsx`:
   - Toggle bookmark state
   - Filled/outline icon states
   - Add to ArticleCard
 
 #### 5.6.3 Bookmarks View
+
 - [ ] Create bookmarks page/filter:
   - Filter to show only bookmarked articles
   - Export button
@@ -1311,16 +1425,18 @@ This document provides a detailed, step-by-step implementation guide for buildin
 ### 5.7 User Authentication (Optional)
 
 #### 5.7.1 Supabase Auth Setup
+
 - [ ] Configure Supabase Auth in dashboard
 - [ ] Create `backend/src/services/auth.service.ts`:
   ```typescript
-  - signUp(email, password)
-  - signIn(email, password)
-  - signOut()
-  - getCurrentUser()
+  -signUp(email, password) -
+    signIn(email, password) -
+    signOut() -
+    getCurrentUser();
   ```
 
 #### 5.7.2 Auth Endpoints
+
 - [ ] Create auth routes:
   ```
   POST /api/auth/signup
@@ -1330,12 +1446,14 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 5.7.3 Auth Middleware
+
 - [ ] Create `backend/src/middleware/auth.middleware.ts`:
   - Verify JWT token
   - Attach user to request
   - Protect user-specific routes
 
 #### 5.7.4 User Feature Endpoints
+
 - [ ] Create user routes:
   ```
   GET    /api/user/bookmarks
@@ -1346,6 +1464,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ```
 
 #### 5.7.5 Frontend Auth Integration
+
 - [ ] Create auth context and hooks:
   - useAuth() - current user state
   - Login/Signup forms
@@ -1370,44 +1489,44 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 ## Appendix A: RSS Feed URLs
 
-| Source | Feed URL |
-|--------|----------|
-| TechCrunch AI | `https://techcrunch.com/category/artificial-intelligence/feed/` |
-| VentureBeat AI | `https://venturebeat.com/category/ai/feed/` |
+| Source                | Feed URL                                                              |
+| --------------------- | --------------------------------------------------------------------- |
+| TechCrunch AI         | `https://techcrunch.com/category/artificial-intelligence/feed/`       |
+| VentureBeat AI        | `https://venturebeat.com/category/ai/feed/`                           |
 | MIT Technology Review | `https://www.technologyreview.com/topic/artificial-intelligence/feed` |
-| The Verge AI | `https://www.theverge.com/rss/ai-artificial-intelligence/index.xml` |
-| Ars Technica | `https://feeds.arstechnica.com/arstechnica/features` |
-| Wired AI | `https://www.wired.com/feed/tag/ai/latest/rss` |
+| The Verge AI          | `https://www.theverge.com/rss/ai-artificial-intelligence/index.xml`   |
+| Ars Technica          | `https://feeds.arstechnica.com/arstechnica/features`                  |
+| Wired AI              | `https://www.wired.com/feed/tag/ai/latest/rss`                        |
 
 ## Appendix B: YouTube Channel IDs
 
-| Channel | Channel ID |
-|---------|------------|
+| Channel           | Channel ID                 |
+| ----------------- | -------------------------- |
 | Two Minute Papers | `UCbfYPyITQ-7l4upoX8nvctg` |
-| Andrej Karpathy | `UCXUPKJO5MZQN11PqgIvyuvQ` |
-| Yannic Kilcher | `UCZHmQk67mN2dJ5rFUSBU7xQ` |
-| AI Explained | `UCNJ1Ymd5yFuUPtn21xtRbbw` |
+| Andrej Karpathy   | `UCXUPKJO5MZQN11PqgIvyuvQ` |
+| Yannic Kilcher    | `UCZHmQk67mN2dJ5rFUSBU7xQ` |
+| AI Explained      | `UCNJ1Ymd5yFuUPtn21xtRbbw` |
 
 ## Appendix C: API Error Codes
 
-| Code | Description |
-|------|-------------|
+| Code               | Description                |
+| ------------------ | -------------------------- |
 | `VALIDATION_ERROR` | Invalid request parameters |
-| `NOT_FOUND` | Resource not found |
-| `INTERNAL_ERROR` | Server error |
-| `RATE_LIMITED` | Too many requests |
-| `UNAUTHORIZED` | Authentication required |
-| `FORBIDDEN` | Insufficient permissions |
+| `NOT_FOUND`        | Resource not found         |
+| `INTERNAL_ERROR`   | Server error               |
+| `RATE_LIMITED`     | Too many requests          |
+| `UNAUTHORIZED`     | Authentication required    |
+| `FORBIDDEN`        | Insufficient permissions   |
 
 ## Appendix D: Content Categories
 
-| Category | Description | Examples |
-|----------|-------------|----------|
-| News | Industry news, announcements | Product launches, funding |
-| Research | Academic papers, studies | arXiv papers, benchmarks |
-| Tutorial | How-to guides, courses | Coding tutorials |
-| Opinion | Analysis, commentary | Blog posts, editorials |
-| Tool | Software, libraries | New frameworks, updates |
+| Category | Description                  | Examples                  |
+| -------- | ---------------------------- | ------------------------- |
+| News     | Industry news, announcements | Product launches, funding |
+| Research | Academic papers, studies     | arXiv papers, benchmarks  |
+| Tutorial | How-to guides, courses       | Coding tutorials          |
+| Opinion  | Analysis, commentary         | Blog posts, editorials    |
+| Tool     | Software, libraries          | New frameworks, updates   |
 
 ---
 
