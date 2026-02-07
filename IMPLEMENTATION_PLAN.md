@@ -31,32 +31,33 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 1.2.1 Supabase Setup (Database)
 
-- [ ] Create Supabase account at [supabase.com](https://supabase.com)
-- [ ] Create new project `ai-trends-tracker-dev`
-- [ ] Set and securely store database password
-- [ ] Navigate to **Settings → Database** and copy:
+- [x] Create Supabase account at [supabase.com](https://supabase.com)
+- [x] Create new project `ai-trends-tracker`
+- [x] Set and securely store database password
+- [x] Navigate to **Settings → Database** and copy:
   - Pooled connection string (port 6543) → `DATABASE_URL`
   - Direct connection string (port 5432) → `DIRECT_URL`
-- [ ] Document connection strings in password manager
+- [x] Document connection strings in password manager
 
 #### 1.2.2 Anthropic API Setup (Claude)
 
-- [ ] Create Anthropic account at [console.anthropic.com](https://console.anthropic.com)
-- [ ] Generate API key
-- [ ] Store API key securely → `ANTHROPIC_API_KEY`
-- [ ] Note: Claude 3.5 Haiku model ID: `claude-3-5-haiku-20241022`
+- [x] Create Anthropic account at [console.anthropic.com](https://console.anthropic.com)
+- [x] Generate API key
+- [x] Store API key securely → `ANTHROPIC_API_KEY`
+- [x] Note: Claude 3.5 Haiku model ID: `claude-3-5-haiku-20241022`
 
 #### 1.2.3 Vercel Setup (Deployment - Optional for MVP)
 
 - [ ] Create Vercel account at [vercel.com](https://vercel.com)
 - [ ] Link GitHub repository
+- [ ] Note: Requires `server.ts` to exist before deployment will succeed
 - [ ] Note: Detailed deployment configuration in Phase 3
 
 ### 1.3 Backend Project Setup
 
 #### 1.3.1 Initialize Backend
 
-- [ ] Create `backend/` directory structure:
+- [x] Create `backend/` directory structure:
   ```
   backend/
   ├── src/
@@ -71,19 +72,19 @@ This document provides a detailed, step-by-step implementation guide for buildin
   ├── package.json
   └── tsconfig.json
   ```
-- [ ] Initialize npm project: `npm init -y`
-- [ ] Install production dependencies:
+- [x] Initialize npm project: `npm init -y`
+- [x] Install production dependencies:
   ```bash
   npm install express @prisma/client @anthropic-ai/sdk @extractus/article-extractor rss-parser zod cors helmet dotenv
   ```
-- [ ] Install dev dependencies:
+- [x] Install dev dependencies:
   ```bash
   npm install -D typescript prisma vitest @types/express @types/cors @types/node tsx
   ```
 
 #### 1.3.2 TypeScript Configuration
 
-- [ ] Create `tsconfig.json`:
+- [x] Create `tsconfig.json`:
   ```json
   {
     "compilerOptions": {
@@ -109,7 +110,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 1.3.3 Environment Configuration
 
-- [ ] Create `backend/.env.example`:
+- [x] Create `backend/.env.example`:
 
   ```env
   # Database (Supabase)
@@ -124,11 +125,11 @@ This document provides a detailed, step-by-step implementation guide for buildin
   NODE_ENV=development
   ```
 
-- [ ] Create `backend/.env` with actual values (do NOT commit)
+- [x] Create `backend/.env` with actual values (do NOT commit)
 
 #### 1.3.4 Package.json Scripts
 
-- [ ] Add scripts to `package.json`:
+- [x] Add scripts to `package.json`:
   ```json
   {
     "scripts": {
