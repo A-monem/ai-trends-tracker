@@ -49,11 +49,14 @@ ai-trends-tracker/
 │   │   ├── services/        # API client
 │   │   └── types/           # TypeScript definitions
 │   └── tests/
-└── docs/
-    ├── PRODUCT_SPECS.md
-    ├── TECHNICAL_REQUIREMENTS.md
-    ├── PROJECT_PLAN.md
-    └── IMPLEMENTATION_PLAN.md
+├── .claude/                  # Claude Code configuration
+│   ├── hooks/               # Automation hooks
+│   └── skills/              # Custom skills
+├── CLAUDE.md                # Claude Code context
+├── PRODUCT_SPECS.md         # User workflows and features
+├── TECHNICAL_REQUIREMENTS.md # Architecture details
+├── PROJECT_PLAN.md          # Goals and roadmap
+└── IMPLEMENTATION_PLAN.md   # Step-by-step tasks
 ```
 
 ## Getting Started

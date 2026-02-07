@@ -1475,7 +1475,7 @@ We use Supabase for both local development and production. No local PostgreSQL i
 
 1. Go to [supabase.com](https://supabase.com) and sign up/login
 2. Click "New Project"
-3. Choose a name (e.g., `ai-trends-tracker-dev`)
+3. Choose a name (e.g., `ai-trends-tracker`)
 4. Set a database password (save this!)
 5. Select region closest to you
 6. Click "Create new project"
@@ -1649,11 +1649,11 @@ Model Context Protocol (MCP) servers extend Claude's capabilities with direct in
 
 ### Recommended Servers
 
-| Server | Purpose | Value |
-|--------|---------|-------|
+| Server           | Purpose                                       | Value                                                        |
+| ---------------- | --------------------------------------------- | ------------------------------------------------------------ |
 | **Supabase MCP** | Database queries, migrations, type generation | Query DB in natural language, auto-generate TypeScript types |
-| **GitHub MCP** | Repository management, PRs, issues, Actions | Create PRs, manage issues without leaving Claude |
-| **Vercel MCP** | Deployment management, logs, env vars | Monitor deployments, check build logs |
+| **GitHub MCP**   | Repository management, PRs, issues, Actions   | Create PRs, manage issues without leaving Claude             |
+| **Vercel MCP**   | Deployment management, logs, env vars         | Monitor deployments, check build logs                        |
 
 ### Configuration
 
