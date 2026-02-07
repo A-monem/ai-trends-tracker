@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Source {
+  id         String    @id @default(uuid())
+  name       String    @unique @db.VarChar(100)
+  slug       String    @unique @db.VarChar(50)
+  type       String    @default("rss") @db.VarChar(20)
+  feedUrl    String?   @map("feed_url")
+  websiteUrl String    @map("website_url")
+  isActive   Boolean   @default(true) @map("is_active")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  articles   Article[]
+  fetches    Fetch[]
+
+  @@map("sources")
+}
+
+model Article {
+  id           String    @id @default(uuid())
+  sourceId     String    @map("source_id")
+  title        String    @db.VarChar(500)
+  url          String    @unique
+  summary      String?
+  contentHash  String    @map("content_hash") @db.VarChar(64)
+  publishedAt  DateTime  @map("published_at")
+  fetchedAt    DateTime  @default(now()) @map("fetched_at")
+  summarizedAt DateTime? @map("summarized_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  source       Source    @relation(fields: [sourceId], references: [id])
+
+  @@index([sourceId])
+  @@index([publishedAt(sort: Desc)])
+  @@index([contentHash])
+  @@map("articles")
+}
+
+model Fetch {
+  id            String    @id @default(uuid())
+  sourceId      String?   @map("source_id")
+  status        String    @db.VarChar(20)
+  articlesFound Int       @default(0) @map("articles_found")
+  articlesNew   Int       @default(0) @map("articles_new")
+  errorMessage  String?   @map("error_message")
+  startedAt     DateTime  @default(now()) @map("started_at")
+  completedAt   DateTime? @map("completed_at")
+
+  source        Source?   @relation(fields: [sourceId], references: [id])
+
+  @@index([status])
+  @@map("fetches")
+}

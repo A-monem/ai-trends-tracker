@@ -150,50 +150,38 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 1.4.1 Initialize Frontend with Vite
 
-- [ ] Create Vite React project:
+- [x] Create Vite React project:
   ```bash
   npm create vite@latest frontend -- --template react-ts
   cd frontend
   npm install
   ```
-- [ ] Install additional dependencies:
+- [x] Install additional dependencies:
   ```bash
   npm install @tanstack/react-query axios
   npm install -D tailwindcss postcss autoprefixer vitest @testing-library/react @testing-library/jest-dom jsdom
   ```
 
-#### 1.4.2 Tailwind CSS Configuration
+#### 1.4.2 Tailwind CSS Configuration (Updated for v4)
 
-- [ ] Initialize Tailwind: `npx tailwindcss init -p`
-- [ ] Configure `tailwind.config.js`:
-  ```javascript
-  /** @type {import('tailwindcss').Config} */
-  export default {
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-    theme: {
-      extend: {},
-    },
-    plugins: [],
-  };
-  ```
-- [ ] Update `src/index.css`:
+- [x] Install Tailwind v4 Vite plugin: `npm install -D @tailwindcss/vite`
+- [x] Configure `vite.config.ts` with Tailwind plugin
+- [x] Update `src/index.css`:
   ```css
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+  @import "tailwindcss";
   ```
 
 #### 1.4.3 Frontend Environment
 
-- [ ] Create `frontend/.env.example`:
+- [x] Create `frontend/.env.example`:
   ```env
-  VITE_API_URL=http://localhost:3001/api
+  VITE_API_URL=http://localhost:4000/api
   ```
-- [ ] Create `frontend/.env` with actual values
+- [x] Create `frontend/.env` with actual values
 
 #### 1.4.4 Frontend Project Structure
 
-- [ ] Create directory structure:
+- [x] Create directory structure:
   ```
   frontend/src/
   ├── components/
@@ -209,7 +197,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 1.5.1 Prisma Initialization
 
-- [ ] Create `backend/src/prisma/schema.prisma` with MVP schema:
+- [x] Create `backend/prisma/schema.prisma` with MVP schema:
 
   ```prisma
   generator client {
@@ -278,13 +266,13 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 1.5.2 Database Migration
 
-- [ ] Generate Prisma client: `npm run db:generate`
-- [ ] Push schema to database: `npm run db:push`
-- [ ] Verify tables created in Supabase dashboard
+- [x] Generate Prisma client: `npm run db:generate`
+- [x] Push schema to database (via Supabase MCP due to direct connection restrictions)
+- [x] Verify tables created in Supabase dashboard
 
 #### 1.5.3 Seed Data
 
-- [ ] Create `backend/src/prisma/seed.ts`:
+- [x] Create `backend/src/prisma/seed.ts`:
 
   ```typescript
   import { PrismaClient } from "@prisma/client";
@@ -357,17 +345,17 @@ This document provides a detailed, step-by-step implementation guide for buildin
     });
   ```
 
-- [ ] Run seed: `npm run db:seed`
-- [ ] Verify sources in database via Prisma Studio: `npm run db:studio`
+- [x] Run seed: `npm run db:seed`
+- [x] Verify sources in database (6 RSS sources seeded)
 
 ### 1.6 Phase 1 Verification Checklist
 
-- [ ] Backend `npm run dev` starts without errors
-- [ ] Frontend `npm run dev` starts and shows default Vite page
-- [ ] Database connection works (verify via Prisma Studio)
-- [ ] All 6 RSS sources seeded in database
-- [ ] Environment variables properly configured
-- [ ] Git repository initialized with initial commit
+- [ ] Backend `npm run dev` starts without errors (requires server.ts from Phase 2)
+- [x] Frontend `npm run dev` starts and shows default Vite page
+- [x] Database connection works (verified via Prisma seed & Supabase MCP)
+- [x] All 6 RSS sources seeded in database
+- [x] Environment variables properly configured
+- [x] Git repository initialized
 
 ---
 
