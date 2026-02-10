@@ -175,7 +175,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 - [x] Create `frontend/.env.example`:
   ```env
-  VITE_API_URL=http://localhost:4000/api
+  VITE_API_URL=http://localhost:3001/api
   ```
 - [x] Create `frontend/.env` with actual values
 
@@ -350,7 +350,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 ### 1.6 Phase 1 Verification Checklist
 
-- [ ] Backend `npm run dev` starts without errors (requires server.ts from Phase 2)
+- [x] Backend `npm run dev` starts without errors (requires server.ts from Phase 2)
 - [x] Frontend `npm run dev` starts and shows default Vite page
 - [x] Database connection works (verified via Prisma seed & Supabase MCP)
 - [x] All 6 RSS sources seeded in database
@@ -365,7 +365,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.1.1 Express Application Setup
 
-- [ ] Create `backend/src/app.ts`:
+- [x] Create `backend/src/app.ts`:
   - Initialize Express app
   - Configure CORS middleware
   - Configure Helmet for security headers
@@ -375,7 +375,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.1.2 Server Entry Point
 
-- [ ] Create `backend/src/server.ts`:
+- [x] Create `backend/src/server.ts`:
   - Import app from `app.ts`
   - Configure port from environment
   - Start server with logging
@@ -383,21 +383,21 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.1.3 Prisma Client Singleton
 
-- [ ] Create `backend/src/utils/prisma.ts`:
+- [x] Create `backend/src/utils/prisma.ts`:
   - Create singleton Prisma client instance
   - Handle connection in development (prevent multiple instances)
   - Export prisma client
 
 #### 2.1.4 Logger Utility
 
-- [ ] Create `backend/src/utils/logger.ts`:
+- [x] Create `backend/src/utils/logger.ts`:
   - Create simple console logger with timestamps
   - Support log levels: info, warn, error, debug
   - Format: `[TIMESTAMP] [LEVEL] message`
 
 #### 2.1.5 Hash Utility
 
-- [ ] Create `backend/src/utils/hash.ts`:
+- [x] Create `backend/src/utils/hash.ts`:
   - Create `generateContentHash(url: string, title: string): string`
   - Use SHA-256 for deduplication
 
@@ -405,7 +405,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.2.1 API Schemas
 
-- [ ] Create `backend/src/schemas/api.schemas.ts`:
+- [x] Create `backend/src/schemas/api.schemas.ts`:
 
   ```typescript
   // Query parameter schemas
@@ -424,7 +424,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.3.1 Validation Middleware
 
-- [ ] Create `backend/src/middleware/validation.middleware.ts`:
+- [x] Create `backend/src/middleware/validation.middleware.ts`:
   - `validateQuery(schema)` - validates request query params
   - `validateParams(schema)` - validates route params
   - `validateBody(schema)` - validates request body
@@ -432,7 +432,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.3.2 Error Handling Middleware
 
-- [ ] Create `backend/src/middleware/error.middleware.ts`:
+- [x] Create `backend/src/middleware/error.middleware.ts`:
   - Global error handler
   - Format errors consistently: `{ success: false, error: { code, message } }`
   - Log errors with stack traces in development
@@ -442,7 +442,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.4.1 RSS Service
 
-- [ ] Create `backend/src/services/rss.service.ts`:
+- [x] Create `backend/src/services/rss.service.ts`:
 
   ```typescript
   interface RSSItem {
@@ -461,7 +461,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.4.2 Scraper Service
 
-- [ ] Create `backend/src/services/scraper.service.ts`:
+- [x] Create `backend/src/services/scraper.service.ts`:
 
   ```typescript
   interface ScrapedArticle {
@@ -494,7 +494,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.4.3 Summarizer Service
 
-- [ ] Create `backend/src/services/summarizer.service.ts`:
+- [x] Create `backend/src/services/summarizer.service.ts`:
 
   ```typescript
   async function summarizeArticle(content: string): Promise<string>
@@ -516,7 +516,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.5.1 Articles Controller
 
-- [ ] Create `backend/src/controllers/articles.controller.ts`:
+- [x] Create `backend/src/controllers/articles.controller.ts`:
 
   ```typescript
   async function listArticles(req, res)
@@ -534,7 +534,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.5.2 Sources Controller
 
-- [ ] Create `backend/src/controllers/sources.controller.ts`:
+- [x] Create `backend/src/controllers/sources.controller.ts`:
   ```typescript
   async function listSources(req, res)
   - Query all active sources
@@ -544,7 +544,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.5.3 Refresh Controller
 
-- [ ] Create `backend/src/controllers/refresh.controller.ts`:
+- [x] Create `backend/src/controllers/refresh.controller.ts`:
 
   ```typescript
   async function triggerRefresh(req, res)
@@ -564,7 +564,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.6.1 Route Definitions
 
-- [ ] Create `backend/src/routes/index.ts`:
+- [x] Create `backend/src/routes/index.ts`:
 
   ```typescript
   // Articles routes
@@ -579,14 +579,14 @@ This document provides a detailed, step-by-step implementation guide for buildin
   GET  /api/refresh/status → refreshController.getRefreshStatus
   ```
 
-- [ ] Apply validation middleware to routes
-- [ ] Register routes in app.ts
+- [x] Apply validation middleware to routes
+- [x] Register routes in app.ts
 
 ### 2.7 Testing
 
 #### 2.7.1 Test Setup
 
-- [ ] Create `backend/vitest.config.ts`:
+- [x] Create `backend/vitest.config.ts`:
 
   ```typescript
   import { defineConfig } from "vitest/config";
@@ -605,16 +605,16 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 2.7.2 Unit Tests
 
-- [ ] Create `backend/tests/services/rss.service.test.ts`:
+- [x] Create `backend/tests/services/rss.service.test.ts`:
   - Test feed parsing
   - Test error handling for invalid feeds
 
-- [ ] Create `backend/tests/services/scraper.service.test.ts`:
+- [x] Create `backend/tests/services/scraper.service.test.ts`:
   - Test article scraping
   - Test duplicate detection
   - Test error handling
 
-- [ ] Create `backend/tests/utils/hash.test.ts`:
+- [x] Create `backend/tests/utils/hash.test.ts`:
   - Test hash generation consistency
   - Test unique hashes for different inputs
 
@@ -629,16 +629,16 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 ### 2.8 Phase 2 Verification Checklist
 
-- [ ] `GET /api/sources` returns seeded sources
-- [ ] `POST /api/refresh` fetches articles from RSS feeds
-- [ ] Articles are deduplicated (no duplicates on re-fetch)
-- [ ] Articles are summarized by Claude
-- [ ] `GET /api/articles` returns paginated articles with summaries
-- [ ] `GET /api/articles?source=techcrunch-ai` filters correctly
-- [ ] `GET /api/articles/:id` returns single article
-- [ ] `GET /api/refresh/status` shows latest fetch status
-- [ ] All tests pass: `npm test`
-- [ ] Error responses follow standard format
+- [x] `GET /api/sources` returns seeded sources
+- [x] `POST /api/refresh` fetches articles from RSS feeds
+- [x] Articles are deduplicated (no duplicates on re-fetch)
+- [x] Articles are summarized by Claude
+- [x] `GET /api/articles` returns paginated articles with summaries
+- [x] `GET /api/articles?source=techcrunch-ai` filters correctly
+- [x] `GET /api/articles/:id` returns single article
+- [x] `GET /api/refresh/status` shows latest fetch status
+- [x] All tests pass: `npm test`
+- [x] Error responses follow standard format
 
 ---
 

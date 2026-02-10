@@ -99,11 +99,25 @@ ai-trends-tracker/
 
 **Backend** (`backend/.env`):
 ```env
+# Server
+NODE_ENV=development
+PORT=3001
+CORS_ORIGIN=http://localhost:5173
+
+# Database (Supabase)
 DATABASE_URL=postgresql://...
 DIRECT_URL=postgresql://...
+
+# APIs
 ANTHROPIC_API_KEY=sk-ant-...
-PORT=3001
-NODE_ENV=development
+
+# AI Processing
+AI_MODEL=claude-3-5-haiku-20241022
+AI_MAX_TOKENS=300
+AI_BATCH_SIZE=10
+
+# Logging
+LOG_LEVEL=info
 ```
 
 **Frontend** (`frontend/.env`):
@@ -115,6 +129,7 @@ VITE_API_URL=http://localhost:3001/api
 
 | Method | Endpoint              | Description                |
 | ------ | --------------------- | -------------------------- |
+| GET    | `/health`             | Health check               |
 | GET    | `/api/articles`       | List articles (paginated)  |
 | GET    | `/api/articles/:id`   | Get single article         |
 | GET    | `/api/sources`        | List all sources           |
@@ -139,11 +154,11 @@ VITE_API_URL=http://localhost:3001/api
 ## Development Roadmap
 
 ### MVP
-- [x] Project setup
-- [ ] Backend API (articles, sources, refresh)
-- [ ] RSS feed parsing and scraping
-- [ ] Claude AI summarization
-- [ ] Frontend UI with filtering
+- [x] Project setup (Phase 1)
+- [x] Backend API - articles, sources, refresh (Phase 2)
+- [x] RSS feed parsing and scraping
+- [x] Claude AI summarization with retry logic
+- [ ] Frontend UI with filtering (Phase 3)
 - [ ] Deployment
 
 ### V1
