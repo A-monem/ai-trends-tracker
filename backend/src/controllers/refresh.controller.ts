@@ -121,7 +121,42 @@ export async function getRefreshStatus(
   }
 }
 
+/**
+ * Trigger summarization of unsummarized articles
+ *
+ * POST /api/summarize
+ * Query params:
+ *   - limit: Maximum number of articles to summarize (optional, default from env)
+ */
+export async function triggerSummarize(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const limit = req.query.limit ? Number(req.query.limit) : undefined;
+
+    logger.info(
+      `Starting summarization${limit ? ` (limit: ${limit})` : ""}...`,
+    );
+
+    const summarizedCount = await summarizeUnsummarized(limit);
+
+    logger.info(`Summarization completed: ${summarizedCount} articles`);
+
+    res.json({
+      success: true,
+      data: {
+        summarized: summarizedCount,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
   triggerRefresh,
   getRefreshStatus,
+  triggerSummarize,
 };

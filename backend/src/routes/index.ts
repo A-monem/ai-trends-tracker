@@ -3,7 +3,11 @@ import {
   validateQuery,
   validateParams,
 } from "../middleware/validation.middleware.js";
-import { ArticleQuerySchema, ArticleIdSchema } from "../schemas/api.schemas.js";
+import {
+  ArticleQuerySchema,
+  ArticleIdSchema,
+  SummarizeQuerySchema,
+} from "../schemas/api.schemas.js";
 import {
   listArticles,
   getArticle,
@@ -12,6 +16,7 @@ import { listSources } from "../controllers/sources.controller.js";
 import {
   triggerRefresh,
   getRefreshStatus,
+  triggerSummarize,
 } from "../controllers/refresh.controller.js";
 
 const router = Router();
@@ -42,5 +47,16 @@ router.post("/refresh", triggerRefresh);
 
 // GET /api/refresh/status - Get latest refresh status
 router.get("/refresh/status", getRefreshStatus);
+
+// ============================================
+// Summarize Routes
+// ============================================
+
+// POST /api/summarize - Trigger summarization only (no refresh)
+router.post(
+  "/summarize",
+  validateQuery(SummarizeQuerySchema),
+  triggerSummarize,
+);
 
 export default router;

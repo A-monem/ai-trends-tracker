@@ -703,7 +703,7 @@ Use Claude to automatically categorize articles during summarization.
 ```typescript
 export async function categorizeAndSummarize(content: string) {
   const response = await client.messages.create({
-    model: "claude-3-5-haiku-20241022",
+    model: "claude-haiku-4-5-20251001",
     max_tokens: 400,
     messages: [
       {
@@ -1588,7 +1588,7 @@ const client = new Anthropic();
 
 export async function summarizeArticle(content: string): Promise<string> {
   const response = await client.messages.create({
-    model: "claude-3-5-haiku-20241022",
+    model: "claude-haiku-4-5-20251001",
     max_tokens: 300,
     messages: [
       {

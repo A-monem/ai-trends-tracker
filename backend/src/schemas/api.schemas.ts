@@ -14,6 +14,10 @@ export const ArticleIdSchema = z.object({
   id: z.string().uuid(),
 });
 
+export const SummarizeQuerySchema = z.object({
+  limit: z.coerce.number().int().positive().max(50).optional(),
+});
+
 // ============================================
 // Response Schemas (for documentation/typing)
 // ============================================
@@ -79,6 +83,7 @@ export const ApiErrorSchema = z.object({
 
 export type ArticleQuery = z.infer<typeof ArticleQuerySchema>;
 export type ArticleId = z.infer<typeof ArticleIdSchema>;
+export type SummarizeQuery = z.infer<typeof SummarizeQuerySchema>;
 export type SourceResponse = z.infer<typeof SourceResponseSchema>;
 export type ArticleResponse = z.infer<typeof ArticleResponseSchema>;
 export type Pagination = z.infer<typeof PaginationSchema>;

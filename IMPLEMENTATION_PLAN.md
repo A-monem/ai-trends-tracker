@@ -44,7 +44,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 - [x] Create Anthropic account at [console.anthropic.com](https://console.anthropic.com)
 - [x] Generate API key
 - [x] Store API key securely → `ANTHROPIC_API_KEY`
-- [x] Note: Claude 3.5 Haiku model ID: `claude-3-5-haiku-20241022`
+- [x] Note: Claude 3.5 Haiku model ID: `claude-haiku-4-5-20251001`
 
 #### 1.2.3 Vercel Setup (Deployment - Optional for MVP)
 

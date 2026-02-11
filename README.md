@@ -16,17 +16,17 @@ AI Trends Tracker solves the problem of information overload by centralizing AI 
 
 ## Tech Stack
 
-| Layer      | Technology                     |
-| ---------- | ------------------------------ |
-| Frontend   | React + Vite + TypeScript      |
-| Styling    | Tailwind CSS                   |
-| State      | TanStack Query                 |
-| Backend    | Node.js + Express.js           |
-| Database   | PostgreSQL (Supabase)          |
-| ORM        | Prisma                         |
-| Validation | Zod                            |
-| AI         | Claude 3.5 Haiku (Anthropic)   |
-| Deployment | Vercel + Supabase              |
+| Layer      | Technology                   |
+| ---------- | ---------------------------- |
+| Frontend   | React + Vite + TypeScript    |
+| Styling    | Tailwind CSS                 |
+| State      | TanStack Query               |
+| Backend    | Node.js + Express.js         |
+| Database   | PostgreSQL (Supabase)        |
+| ORM        | Prisma                       |
+| Validation | Zod                          |
+| AI         | Claude 4.5 Haiku (Anthropic) |
+| Deployment | Vercel + Supabase            |
 
 ## Project Structure
 
@@ -71,12 +71,14 @@ ai-trends-tracker/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repo-url>
    cd ai-trends-tracker
    ```
 
 2. **Backend setup**
+
    ```bash
    cd backend
    npm install
@@ -98,6 +100,7 @@ ai-trends-tracker/
 ### Environment Variables
 
 **Backend** (`backend/.env`):
+
 ```env
 # Server
 NODE_ENV=development
@@ -112,7 +115,7 @@ DIRECT_URL=postgresql://...
 ANTHROPIC_API_KEY=sk-ant-...
 
 # AI Processing
-AI_MODEL=claude-3-5-haiku-20241022
+AI_MODEL=claude-haiku-4-5-20251001
 AI_MAX_TOKENS=300
 AI_BATCH_SIZE=10
 
@@ -121,24 +124,39 @@ LOG_LEVEL=info
 ```
 
 **Frontend** (`frontend/.env`):
+
 ```env
 VITE_API_URL=http://localhost:3001/api
 ```
 
 ## API Endpoints
 
-| Method | Endpoint              | Description                |
-| ------ | --------------------- | -------------------------- |
-| GET    | `/health`             | Health check               |
-| GET    | `/api/articles`       | List articles (paginated)  |
-| GET    | `/api/articles/:id`   | Get single article         |
-| GET    | `/api/sources`        | List all sources           |
-| POST   | `/api/refresh`        | Trigger content refresh    |
-| GET    | `/api/refresh/status` | Get latest refresh status  |
+| Method | Endpoint              | Description                         |
+| ------ | --------------------- | ----------------------------------- |
+| GET    | `/health`             | Health check                        |
+| GET    | `/api/articles`       | List articles (paginated)           |
+| GET    | `/api/articles/:id`   | Get single article                  |
+| GET    | `/api/sources`        | List all sources                    |
+| POST   | `/api/refresh`        | Trigger content refresh + summarize |
+| GET    | `/api/refresh/status` | Get latest refresh status           |
+| POST   | `/api/summarize`      | Summarize only (no refresh)         |
+
+### Query Parameters
+
+**GET /api/articles**
+
+- `source` - Filter by source slug (e.g., `techcrunch-ai`)
+- `page` - Page number (default: 1)
+- `limit` - Items per page (default: 20, max: 100)
+
+**POST /api/summarize**
+
+- `limit` - Max articles to summarize (optional, max: 50)
 
 ## Content Sources
 
 ### MVP (RSS Feeds)
+
 - TechCrunch AI
 - VentureBeat AI
 - MIT Technology Review
@@ -147,6 +165,7 @@ VITE_API_URL=http://localhost:3001/api
 - Wired AI
 
 ### V1 (Planned)
+
 - YouTube (Two Minute Papers, Andrej Karpathy, etc.)
 - Hacker News (AI-filtered)
 - Reddit (r/MachineLearning, r/artificial, r/LocalLLaMA)
@@ -154,6 +173,7 @@ VITE_API_URL=http://localhost:3001/api
 ## Development Roadmap
 
 ### MVP
+
 - [x] Project setup (Phase 1)
 - [x] Backend API - articles, sources, refresh (Phase 2)
 - [x] RSS feed parsing and scraping
@@ -162,12 +182,14 @@ VITE_API_URL=http://localhost:3001/api
 - [ ] Deployment
 
 ### V1
+
 - [ ] YouTube integration
 - [ ] Hacker News integration
 - [ ] Reddit integration
 - [ ] Automated cron jobs (6-hour refresh)
 
 ### V2
+
 - [ ] Full-text search
 - [ ] Advanced filtering (category, date range)
 - [ ] AI-powered content categorization
@@ -178,6 +200,7 @@ VITE_API_URL=http://localhost:3001/api
 ## Scripts
 
 ### Backend
+
 ```bash
 npm run dev          # Start development server
 npm run build        # Build for production
@@ -187,6 +210,7 @@ npm run db:seed      # Seed database
 ```
 
 ### Frontend
+
 ```bash
 npm run dev          # Start development server
 npm run build        # Build for production

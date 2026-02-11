@@ -14,7 +14,7 @@ const anthropic = new Anthropic({
 });
 
 // Configuration from environment variables (with defaults)
-const MODEL = process.env.AI_MODEL || "claude-3-5-haiku-20241022";
+const MODEL = process.env.AI_MODEL || "claude-haiku-4-5-20251001";
 const MAX_TOKENS = parseInt(process.env.AI_MAX_TOKENS || "300", 10);
 const BATCH_SIZE = parseInt(process.env.AI_BATCH_SIZE || "10", 10);
 const MAX_CONTENT_LENGTH = 10000; // ~2500 tokens - prevents API errors
@@ -70,6 +70,10 @@ export async function summarizeArticle(content: string): Promise<string> {
         ],
       });
 
+      logger.debug(
+        `Received response from Anthropic API on attempt ${attempt}`,
+      );
+
       // Extract text from response
       const textBlock = response.content.find((block) => block.type === "text");
       if (!textBlock || textBlock.type !== "text") {
@@ -122,6 +126,10 @@ export async function summarizeUnsummarized(limit?: number): Promise<number> {
           logger.warn(`Could not scrape content for: ${article.title}`);
           continue;
         }
+
+        logger.debug(
+          `Scraped content for "${article.title}": ${scraped.content.length} characters`,
+        );
 
         // Generate summary
         const summary = await summarizeArticle(scraped.content);
