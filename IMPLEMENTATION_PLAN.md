@@ -648,7 +648,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.1.1 API Client
 
-- [ ] Create `frontend/src/services/api.ts`:
+- [x] Create `frontend/src/services/api.ts`:
   ```typescript
   - Create Axios instance with baseURL from env
   - Add response interceptor for error handling
@@ -662,7 +662,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.1.2 TypeScript Types
 
-- [ ] Create `frontend/src/types/index.ts`:
+- [x] Create `frontend/src/types/index.ts`:
 
   ```typescript
   interface Source {
@@ -705,7 +705,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.1.3 React Query Setup
 
-- [ ] Update `frontend/src/main.tsx`:
+- [x] Update `frontend/src/main.tsx`:
   - Create QueryClient instance
   - Wrap App with QueryClientProvider
   - Configure default options (staleTime, retry)
@@ -714,7 +714,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.2.1 useArticles Hook
 
-- [ ] Create `frontend/src/hooks/useArticles.ts`:
+- [x] Create `frontend/src/hooks/useArticles.ts`:
   ```typescript
   function useArticles(params: { source?: string; page?: number; limit?: number })
   - Use useQuery with ['articles', params] key
@@ -724,7 +724,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.2.2 useSources Hook
 
-- [ ] Create `frontend/src/hooks/useSources.ts`:
+- [x] Create `frontend/src/hooks/useSources.ts`:
   ```typescript
   function useSources()
   - Use useQuery with ['sources'] key
@@ -734,7 +734,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.2.3 useRefresh Hook
 
-- [ ] Create `frontend/src/hooks/useRefresh.ts`:
+- [x] Create `frontend/src/hooks/useRefresh.ts`:
   ```typescript
   function useRefresh()
   - Use useMutation for triggerRefresh
@@ -747,7 +747,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.3.1 Header Component
 
-- [ ] Create `frontend/src/components/Header.tsx`:
+- [x] Create `frontend/src/components/Header.tsx`:
   - App title: "AI Trends Tracker"
   - RefreshButton component placement
   - Clean, minimal design
@@ -755,7 +755,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.3.2 SourceFilter Component
 
-- [ ] Create `frontend/src/components/SourceFilter.tsx`:
+- [x] Create `frontend/src/components/SourceFilter.tsx`:
   - Display "All Sources" button (default)
   - Display button for each source
   - Highlight active filter
@@ -764,7 +764,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.3.3 ArticleCard Component
 
-- [ ] Create `frontend/src/components/ArticleCard.tsx`:
+- [x] Create `frontend/src/components/ArticleCard.tsx`:
   - Display article title
   - Display source name with icon/badge
   - Display formatted publish date
@@ -774,7 +774,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.3.4 ArticleGrid Component
 
-- [ ] Create `frontend/src/components/ArticleGrid.tsx`:
+- [x] Create `frontend/src/components/ArticleGrid.tsx`:
   - Responsive grid: 1 col mobile, 2 cols tablet, 3 cols desktop
   - Map articles to ArticleCard components
   - Handle empty state: "No articles found"
@@ -782,7 +782,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.3.5 ArticleModal Component
 
-- [ ] Create `frontend/src/components/ArticleModal.tsx`:
+- [x] Create `frontend/src/components/ArticleModal.tsx`:
   - Full article summary display
   - Article title as heading
   - Source name and publish date
@@ -792,7 +792,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.3.6 RefreshButton Component
 
-- [ ] Create `frontend/src/components/RefreshButton.tsx`:
+- [x] Create `frontend/src/components/RefreshButton.tsx`:
   - "Refresh" button with icon
   - Loading spinner while refreshing
   - Disabled state during refresh
@@ -801,7 +801,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.3.7 Pagination Component
 
-- [ ] Create `frontend/src/components/Pagination.tsx`:
+- [x] Create `frontend/src/components/Pagination.tsx`:
   - Previous/Next buttons
   - Page number display: "Page X of Y"
   - Disabled states at boundaries
@@ -811,7 +811,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.4.1 App Component
 
-- [ ] Update `frontend/src/App.tsx`:
+- [x] Update `frontend/src/App.tsx`:
   ```tsx
   - State: selectedSource, currentPage
   - Layout:
@@ -844,7 +844,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.5.1 Base Styles
 
-- [ ] Update `frontend/src/index.css`:
+- [x] Update `frontend/src/index.css`:
   - CSS reset/normalize via Tailwind
   - Custom font (Inter or system fonts)
   - Color palette definition
@@ -852,7 +852,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.5.2 Component Styling
 
-- [ ] Style each component using Tailwind classes:
+- [x] Style each component using Tailwind classes:
   - Consistent spacing scale
   - Card shadows and borders
   - Button hover/active states
@@ -863,7 +863,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.6.1 Test Setup
 
-- [ ] Create `frontend/vitest.config.ts`:
+- [x] Create `frontend/vitest.config.ts`:
 
   ```typescript
   import { defineConfig } from "vitest/config";
@@ -879,25 +879,25 @@ This document provides a detailed, step-by-step implementation guide for buildin
   });
   ```
 
-- [ ] Create `frontend/tests/setup.ts`:
+- [x] Create `frontend/tests/setup.ts`:
   ```typescript
   import "@testing-library/jest-dom";
   ```
 
 #### 3.6.2 Component Tests
 
-- [ ] Create `frontend/tests/components/ArticleCard.test.tsx`:
+- [x] Create `frontend/tests/components/ArticleCard.test.tsx`:
   - Renders article title
   - Renders source name
   - Renders formatted date
   - Calls onClick when clicked
 
-- [ ] Create `frontend/tests/components/SourceFilter.test.tsx`:
+- [x] Create `frontend/tests/components/SourceFilter.test.tsx`:
   - Renders all sources
   - Highlights selected source
   - Calls onSelect with correct slug
 
-- [ ] Create `frontend/tests/components/Pagination.test.tsx`:
+- [x] Create `frontend/tests/components/Pagination.test.tsx`:
   - Disables Previous on first page
   - Disables Next on last page
   - Calls onPageChange with correct page
@@ -939,7 +939,7 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.7.3 Frontend Production Build
 
-- [ ] Test production build: `npm run build`
+- [x] Test production build: `npm run build`
 - [ ] Test preview: `npm run preview`
 - [ ] Configure `VITE_API_URL` for production
 
@@ -954,8 +954,8 @@ This document provides a detailed, step-by-step implementation guide for buildin
 - [ ] Loading states display correctly
 - [ ] Empty states display correctly
 - [ ] Responsive design works on mobile/tablet/desktop
-- [ ] All component tests pass
-- [ ] Production build succeeds
+- [x] All component tests pass
+- [x] Production build succeeds
 - [ ] Deployed and accessible online
 
 ---
