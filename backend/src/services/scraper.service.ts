@@ -1,4 +1,3 @@
-import { extract } from "@extractus/article-extractor";
 import prisma from "../utils/prisma.js";
 import { logger } from "../utils/logger.js";
 import { generateContentHash } from "../utils/hash.js";
@@ -65,6 +64,8 @@ export async function scrapeArticle(
 
     logger.debug(`Scraping article: ${url}`);
 
+    // Dynamic import for ESM-only module
+    const { extract } = await import("@extractus/article-extractor");
     const article = await extract(url);
 
     if (!article || !article.content) {

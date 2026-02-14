@@ -48,10 +48,10 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 1.2.3 Vercel Setup (Deployment - Optional for MVP)
 
-- [ ] Create Vercel account at [vercel.com](https://vercel.com)
-- [ ] Link GitHub repository
-- [ ] Note: Requires `server.ts` to exist before deployment will succeed
-- [ ] Note: Detailed deployment configuration in Phase 3
+- [x] Create Vercel account at [vercel.com](https://vercel.com)
+- [x] Link GitHub repository
+- [x] Note: Requires `server.ts` to exist before deployment will succeed
+- [x] Note: Detailed deployment configuration in Phase 3
 
 ### 1.3 Backend Project Setup
 
@@ -906,32 +906,36 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 #### 3.7.1 Backend Vercel Configuration
 
-- [ ] Create `backend/vercel.json`:
+- [x] Create `backend/vercel.json`:
   ```json
   {
     "version": 2,
     "builds": [
       {
-        "src": "src/server.ts",
+        "src": "api/index.ts",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
-        "src": "/api/(.*)",
-        "dest": "src/server.ts"
+        "src": "/(.*)",
+        "dest": "api/index.ts"
       }
     ]
   }
   ```
+- [x] Create `backend/api/index.ts` serverless entry point
+- [x] Add `vercel-build` script to package.json for Prisma generation
+- [x] Fix ESM module import for `@extractus/article-extractor` (dynamic import)
 
 #### 3.7.2 Environment Variables (Production)
 
-- [ ] Configure in Vercel dashboard:
+- [x] Configure in Vercel dashboard:
   - `DATABASE_URL` - Supabase pooled connection
   - `DIRECT_URL` - Supabase direct connection
   - `ANTHROPIC_API_KEY` - Claude API key
   - `NODE_ENV=production`
+- [x] Backend deployed at: `https://ai-trends-tracker-backend.vercel.app`
 
 #### 3.7.3 Frontend Production Build
 
@@ -1519,5 +1523,5 @@ This document provides a detailed, step-by-step implementation guide for buildin
 
 ---
 
-**Document Version:** 1.0
-**Last Updated:** 2026-02-06
+**Document Version:** 1.1
+**Last Updated:** 2026-02-14
