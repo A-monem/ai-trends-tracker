@@ -3,9 +3,10 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { Pagination } from "../../src/components/Pagination";
 
 describe("Pagination", () => {
-  it("renders page info", () => {
+  it("renders current page as active", () => {
     render(<Pagination page={1} totalPages={5} onPageChange={() => {}} />);
-    expect(screen.getByText("Page 1 of 5")).toBeInTheDocument();
+    const currentPageButton = screen.getByLabelText("Go to page 1");
+    expect(currentPageButton).toHaveAttribute("aria-current", "page");
   });
 
   it("disables Previous button on first page", () => {

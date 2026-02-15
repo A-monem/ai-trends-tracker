@@ -31,7 +31,7 @@ const mockSources: Source[] = [
 ];
 
 describe("SourceFilter", () => {
-  it("renders All Sources button", () => {
+  it("renders All button", () => {
     render(
       <SourceFilter
         sources={mockSources}
@@ -39,7 +39,7 @@ describe("SourceFilter", () => {
         onSelect={() => {}}
       />,
     );
-    expect(screen.getByText("All Sources")).toBeInTheDocument();
+    expect(screen.getByText("All")).toBeInTheDocument();
   });
 
   it("renders all source names", () => {
@@ -62,11 +62,11 @@ describe("SourceFilter", () => {
         onSelect={() => {}}
       />,
     );
-    expect(screen.getByText("(10)")).toBeInTheDocument();
-    expect(screen.getByText("(5)")).toBeInTheDocument();
+    expect(screen.getByText("10")).toBeInTheDocument();
+    expect(screen.getByText("5")).toBeInTheDocument();
   });
 
-  it("calls onSelect with null when All Sources is clicked", () => {
+  it("calls onSelect with null when All is clicked", () => {
     const handleSelect = vi.fn();
     render(
       <SourceFilter
@@ -76,7 +76,7 @@ describe("SourceFilter", () => {
       />,
     );
 
-    fireEvent.click(screen.getByText("All Sources"));
+    fireEvent.click(screen.getByText("All"));
     expect(handleSelect).toHaveBeenCalledWith(null);
   });
 
@@ -103,6 +103,6 @@ describe("SourceFilter", () => {
         isLoading={true}
       />,
     );
-    expect(screen.queryByText("All Sources")).not.toBeInTheDocument();
+    expect(screen.queryByText("All")).not.toBeInTheDocument();
   });
 });

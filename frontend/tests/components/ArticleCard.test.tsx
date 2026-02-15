@@ -56,8 +56,6 @@ describe("ArticleCard", () => {
   it("shows pending message when summary is null", () => {
     const articleWithoutSummary = { ...mockArticle, summary: null };
     render(<ArticleCard article={articleWithoutSummary} onClick={() => {}} />);
-    expect(
-      screen.getByText("Summary not yet available..."),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Summary generating...")).toBeInTheDocument();
   });
 });
