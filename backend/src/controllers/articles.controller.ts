@@ -15,7 +15,8 @@ export async function listArticles(
   next: NextFunction,
 ): Promise<void> {
   try {
-    const { source, page, limit } = req.query as unknown as ArticleQuery;
+    const { source, page, limit, sortBy, sortOrder } =
+      req.query as unknown as ArticleQuery;
 
     // Build where clause
     const where: { source?: { slug: string } } = {};
@@ -26,7 +27,7 @@ export async function listArticles(
     // Get total count for pagination
     const total = await prisma.article.count({ where });
 
-    // Query articles with pagination
+    // Query articles with pagination and dynamic sorting
     const articles = await prisma.article.findMany({
       where,
       include: {
@@ -39,7 +40,7 @@ export async function listArticles(
           },
         },
       },
-      orderBy: { publishedAt: "desc" },
+      orderBy: { [sortBy]: sortOrder },
       skip: (page - 1) * limit,
       take: limit,
     });

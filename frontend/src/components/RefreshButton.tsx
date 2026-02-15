@@ -3,8 +3,10 @@ import { useRefresh } from "../hooks";
 export function RefreshButton() {
   const { refresh, isRefreshing, status, lastRefreshResult } = useRefresh();
 
-  const lastRefreshTime = status?.completedAt
-    ? new Date(status.completedAt).toLocaleTimeString([], {
+  const lastRefreshDateTime = status?.completedAt
+    ? new Date(status.completedAt).toLocaleString([], {
+        month: "short",
+        day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
       })
@@ -12,11 +14,11 @@ export function RefreshButton() {
 
   return (
     <div className="flex items-center gap-3">
-      {/* Last Updated Time */}
-      {lastRefreshTime && (
+      {/* Last Updated Date & Time */}
+      {lastRefreshDateTime && (
         <div
           className="hidden items-center gap-2 text-xs text-text-muted sm:flex"
-          title={`Last refreshed at ${lastRefreshTime}`}
+          title={`Last synced: ${lastRefreshDateTime}`}
         >
           <svg
             className="h-3.5 w-3.5"
@@ -31,7 +33,7 @@ export function RefreshButton() {
               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span className="font-mono">{lastRefreshTime}</span>
+          <span className="font-mono">{lastRefreshDateTime}</span>
         </div>
       )}
 
@@ -39,7 +41,7 @@ export function RefreshButton() {
       {lastRefreshResult &&
         !isRefreshing &&
         lastRefreshResult.data.articlesNew > 0 && (
-          <span className="hidden items-center gap-1 rounded-full bg-success/10 px-2.5 py-1 text-xs font-semibold text-success border border-success/20 sm:flex">
+          <span className="hidden items-center gap-1 rounded-full bg-success/10 px-2.5 py-1 text-xs font-semibold text-success sm:flex">
             <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
@@ -55,15 +57,12 @@ export function RefreshButton() {
       <button
         onClick={() => refresh()}
         disabled={isRefreshing}
-        className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-surface transition-all duration-300 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50"
+        className="group inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-hover hover:shadow-md hover:shadow-accent/20 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {/* Animated background on hover */}
-        <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
-
         {isRefreshing ? (
           <>
             <svg
-              className="h-4 w-4 animate-spin-slow"
+              className="h-4 w-4 animate-spin"
               fill="none"
               viewBox="0 0 24 24"
             >

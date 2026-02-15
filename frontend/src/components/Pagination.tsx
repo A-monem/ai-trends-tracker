@@ -57,11 +57,11 @@ export function Pagination({
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={!canGoPrevious}
-        className="group inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-text-secondary transition-all duration-300 hover:bg-surface-elevated hover:text-text-primary border border-border disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-text-secondary"
+        className="group inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-text-secondary transition-all duration-200 hover:bg-surface-elevated hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-40"
         aria-label="Previous page"
       >
         <svg
-          className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 group-disabled:translate-x-0"
+          className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -81,15 +81,15 @@ export function Pagination({
         {getPageNumbers().map((pageNum, index) => (
           <span key={index}>
             {pageNum === "..." ? (
-              <span className="px-2 text-text-muted font-mono">•••</span>
+              <span className="px-2 text-text-muted">...</span>
             ) : (
               <button
                 onClick={() => onPageChange(pageNum as number)}
                 disabled={pageNum === page}
-                className={`min-w-[40px] h-10 rounded-xl text-sm font-medium transition-all duration-300 ${
+                className={`min-w-[36px] h-9 rounded-lg text-sm font-medium transition-all duration-200 ${
                   pageNum === page
-                    ? "bg-accent text-surface shadow-lg shadow-accent/20"
-                    : "text-text-secondary hover:bg-surface-elevated hover:text-text-primary border border-transparent hover:border-border"
+                    ? "bg-accent text-white"
+                    : "text-text-secondary hover:bg-surface-elevated hover:text-text-primary"
                 }`}
                 aria-label={`Go to page ${pageNum}`}
                 aria-current={pageNum === page ? "page" : undefined}
@@ -105,12 +105,12 @@ export function Pagination({
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={!canGoNext}
-        className="group inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-text-secondary transition-all duration-300 hover:bg-surface-elevated hover:text-text-primary border border-border disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-text-secondary"
+        className="group inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-text-secondary transition-all duration-200 hover:bg-surface-elevated hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-40"
         aria-label="Next page"
       >
         <span className="hidden sm:inline">Next</span>
         <svg
-          className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-disabled:translate-x-0"
+          className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

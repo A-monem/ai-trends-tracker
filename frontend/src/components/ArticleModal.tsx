@@ -44,30 +44,27 @@ export function ArticleModal({ article, isOpen, onClose }: ArticleModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-up">
-      {/* Backdrop with blur */}
+      {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-md"
+        className="absolute inset-0 bg-text-primary/40 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Modal */}
       <div
-        className="relative max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-2xl bg-surface-elevated border border-border shadow-2xl shadow-black/50"
+        className="relative max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-2xl bg-surface-elevated shadow-2xl shadow-black/10"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
       >
-        {/* Decorative accent line */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-accent to-transparent" />
-
         {/* Header */}
-        <div className="sticky top-0 z-10 glass border-b border-border px-6 py-5">
+        <div className="sticky top-0 z-10 bg-surface-elevated border-b border-border px-6 py-5">
           <div className="flex-1 pr-12">
             {/* Source Badge */}
             <div className="flex items-center gap-3 mb-3">
-              <span className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 border border-accent/20">
-                <span className="w-2 h-2 rounded-full bg-accent animate-pulse-glow" />
+              <span className="inline-flex items-center gap-2 rounded-full bg-accent-muted px-3 py-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                   {article.source.name}
                 </span>
@@ -106,11 +103,11 @@ export function ArticleModal({ article, isOpen, onClose }: ArticleModalProps) {
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute right-4 top-5 group rounded-xl p-2.5 text-text-muted transition-all duration-300 hover:bg-surface-hover hover:text-text-primary border border-transparent hover:border-border"
+            className="absolute right-4 top-5 group rounded-lg p-2 text-text-muted transition-all duration-200 hover:bg-surface-hover hover:text-text-primary"
             aria-label="Close modal"
           >
             <svg
-              className="h-5 w-5 transition-transform duration-300 group-hover:rotate-90"
+              className="h-5 w-5 transition-transform duration-200 group-hover:rotate-90"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -130,7 +127,7 @@ export function ArticleModal({ article, isOpen, onClose }: ArticleModalProps) {
           {/* Summary Section */}
           <div className="relative">
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 border border-accent/20">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-muted">
                 <svg
                   className="h-4 w-4 text-accent"
                   fill="none"
@@ -151,15 +148,15 @@ export function ArticleModal({ article, isOpen, onClose }: ArticleModalProps) {
             </div>
 
             {article.summary ? (
-              <div className="relative pl-4 border-l-2 border-accent/30">
+              <div className="relative pl-4 border-l-2 border-accent">
                 <p className="text-text-secondary leading-relaxed whitespace-pre-wrap">
                   {article.summary}
                 </p>
               </div>
             ) : (
-              <div className="flex items-center gap-3 rounded-xl bg-surface-hover border border-border p-4">
+              <div className="flex items-center gap-3 rounded-xl bg-surface-hover p-4">
                 <svg
-                  className="h-5 w-5 text-text-muted animate-spin-slow"
+                  className="h-5 w-5 text-text-muted animate-spin"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -180,14 +177,14 @@ export function ArticleModal({ article, isOpen, onClose }: ArticleModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 glass border-t border-border px-6 py-4">
+        <div className="sticky bottom-0 bg-surface-elevated border-t border-border px-6 py-4">
           <div className="flex items-center justify-between gap-4">
             <button
               onClick={onClose}
-              className="group inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-medium text-text-secondary transition-all duration-300 hover:bg-surface-hover hover:text-text-primary border border-border"
+              className="group inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-text-secondary transition-all duration-200 hover:bg-surface-hover hover:text-text-primary"
             >
               <svg
-                className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1"
+                className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -206,14 +203,11 @@ export function ArticleModal({ article, isOpen, onClose }: ArticleModalProps) {
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-surface transition-all duration-300 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25"
+              className="group inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-hover hover:shadow-md hover:shadow-accent/20"
             >
-              {/* Animated background */}
-              <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
-
-              <span className="relative">Read Original</span>
+              <span>Read Original</span>
               <svg
-                className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -228,9 +222,6 @@ export function ArticleModal({ article, isOpen, onClose }: ArticleModalProps) {
             </a>
           </div>
         </div>
-
-        {/* Bottom decorative accent */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-accent/50 to-transparent" />
       </div>
     </div>
   );

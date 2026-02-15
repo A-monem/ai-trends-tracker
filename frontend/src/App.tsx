@@ -2,12 +2,13 @@ import { useState } from "react";
 import {
   Header,
   SourceFilter,
+  SortDropdown,
   ArticleGrid,
   ArticleModal,
   Pagination,
 } from "./components";
 import { useArticles, useSources } from "./hooks";
-import type { Article } from "./types";
+import type { Article, SortField, SortOrder } from "./types";
 
 function App() {
   // State
@@ -15,6 +16,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<SortField>("publishedAt");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
 
   // Queries
   const { data: sourcesData, isLoading: isLoadingSources } = useSources();
@@ -23,6 +26,8 @@ function App() {
     source: selectedSource ?? undefined,
     page: currentPage,
     limit: 12,
+    sortBy,
+    sortOrder,
   });
 
   // Handlers
@@ -41,117 +46,92 @@ function App() {
     setSelectedArticle(null);
   };
 
+  const handleSortChange = (field: SortField, order: SortOrder) => {
+    setSortBy(field);
+    setSortOrder(order);
+    setCurrentPage(1); // Reset to first page when changing sort
+  };
+
   // Extract data
   const sources = sourcesData?.data ?? [];
   const articles = articlesData?.data ?? [];
   const pagination = articlesData?.pagination;
 
   return (
-    <div className="relative min-h-screen bg-surface">
-      {/* Background Effects */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Mesh gradient background */}
-        <div className="absolute inset-0 mesh-gradient opacity-50" />
+    <div className="min-h-screen bg-surface">
+      {/* Header */}
+      <Header />
 
-        {/* Radial glow effects */}
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[100px]" />
-
-        {/* Grid pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `linear-gradient(var(--color-text-muted) 1px, transparent 1px),
-                             linear-gradient(90deg, var(--color-text-muted) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-
-        {/* Grain texture */}
-        <div className="grain" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Header with refresh button */}
-        <Header />
-
-        {/* Main content */}
-        <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          {/* Section header */}
-          <div className="mb-8 animate-fade-up">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-1.5 h-8 bg-accent rounded-full" />
-              <h2 className="font-display text-3xl font-bold text-text-primary">
-                Latest Stories
-              </h2>
+      {/* Main content */}
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        {/* Filters */}
+        <section className="mb-8">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            {/* Source filter */}
+            <div className="flex-1 overflow-hidden">
+              <SourceFilter
+                sources={sources}
+                selected={selectedSource}
+                onSelect={handleSourceSelect}
+                isLoading={isLoadingSources}
+              />
             </div>
-            <p className="text-text-secondary ml-5">
-              AI news and insights, curated and summarized
-            </p>
+
+            {/* Sort dropdown */}
+            <div className="shrink-0">
+              <SortDropdown
+                sortBy={sortBy}
+                sortOrder={sortOrder}
+                onSortChange={handleSortChange}
+              />
+            </div>
           </div>
+        </section>
 
-          {/* Source filter */}
-          <section className="mb-8">
-            <SourceFilter
-              sources={sources}
-              selected={selectedSource}
-              onSelect={handleSourceSelect}
-              isLoading={isLoadingSources}
-            />
-          </section>
+        {/* Articles grid */}
+        <section>
+          <ArticleGrid
+            articles={articles}
+            isLoading={isLoadingArticles}
+            onArticleClick={handleArticleClick}
+          />
+        </section>
 
-          {/* Articles grid */}
-          <section>
-            <ArticleGrid
-              articles={articles}
-              isLoading={isLoadingArticles}
-              onArticleClick={handleArticleClick}
-            />
-          </section>
+        {/* Pagination */}
+        {pagination && (
+          <Pagination
+            page={pagination.page}
+            totalPages={pagination.totalPages}
+            onPageChange={setCurrentPage}
+          />
+        )}
+      </main>
 
-          {/* Pagination */}
-          {pagination && (
-            <Pagination
-              page={pagination.page}
-              totalPages={pagination.totalPages}
-              onPageChange={setCurrentPage}
-            />
-          )}
-        </main>
-
-        {/* Footer */}
-        <footer className="border-t border-border mt-12">
-          <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-accent to-amber-600">
-                  <svg
-                    className="h-4 w-4 text-surface"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg>
-                </div>
-                <span className="font-display text-lg font-semibold text-text-primary">
-                  AI <span className="text-accent">Trends</span>
-                </span>
+      {/* Footer */}
+      <footer className="border-t border-border mt-8">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-accent">
+                <svg
+                  className="h-4 w-4 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M3 12h4l3-8 4 16 3-8h4" />
+                </svg>
               </div>
-
-              <p className="text-sm text-text-muted">
-                Powered by Claude AI • Built with React & TypeScript
-              </p>
+              <span className="font-display text-base font-semibold text-text-primary">
+                AI Trends
+              </span>
             </div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
 
       {/* Article detail modal */}
       <ArticleModal

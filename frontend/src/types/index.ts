@@ -78,9 +78,21 @@ export interface RefreshResult {
   };
 }
 
+// Sort options based on Article schema
+export type SortField = "publishedAt" | "fetchedAt";
+export type SortOrder = "asc" | "desc";
+
+export interface SortOption {
+  field: SortField;
+  order: SortOrder;
+  label: string;
+}
+
 // Query params
 export interface ArticleQueryParams {
   source?: string;
   page?: number;
   limit?: number;
+  sortBy?: SortField;
+  sortOrder?: SortOrder;
 }

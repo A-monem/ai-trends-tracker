@@ -36,16 +36,12 @@ export function ArticleCard({ article, onClick }: ArticleCardProps) {
   return (
     <article
       onClick={onClick}
-      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-surface-elevated border border-border p-6 transition-all duration-500 hover:border-accent/40 hover:bg-surface-hover hover-lift"
+      className="group relative h-full flex flex-col cursor-pointer overflow-hidden rounded-xl bg-surface-elevated border border-border p-5 transition-all duration-300 hover:border-accent hover:shadow-lg hover:shadow-black/5"
     >
-      {/* Decorative corner accent */}
-      <div className="absolute top-0 right-0 w-20 h-20 bg-linear-to-bl from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
       {/* Header: Source Badge & Time */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          {/* Source indicator dot */}
-          <span className="w-2 h-2 rounded-full bg-accent" />
+          <span className="w-1.5 h-1.5 rounded-full bg-accent" />
           <span className="text-xs font-semibold uppercase tracking-wider text-accent">
             {article.source.name}
           </span>
@@ -53,19 +49,19 @@ export function ArticleCard({ article, onClick }: ArticleCardProps) {
         <time
           className="font-mono text-xs text-text-muted tabular-nums"
           dateTime={article.publishedAt}
-          title={new Date(article.publishedAt).toLocaleString()}
+          title={`Published: ${new Date(article.publishedAt).toLocaleString()}`}
         >
           {formatRelativeTime(article.publishedAt)}
         </time>
       </div>
 
-      {/* Title - Editorial style */}
-      <h2 className="font-display text-xl font-semibold leading-tight text-text-primary mb-3 line-clamp-2 group-hover:text-accent transition-colors duration-300">
+      {/* Title */}
+      <h2 className="font-display text-lg font-semibold leading-snug text-text-primary mb-2.5 line-clamp-2 group-hover:text-accent transition-colors duration-300">
         {article.title}
       </h2>
 
       {/* Summary Preview */}
-      <div className="relative">
+      <div className="relative flex-1">
         {hasSummary ? (
           <p className="text-sm leading-relaxed text-text-secondary line-clamp-3">
             {article.summary}
@@ -90,33 +86,25 @@ export function ArticleCard({ article, onClick }: ArticleCardProps) {
         )}
       </div>
 
-      {/* Footer - Read more indicator */}
-      <div className="mt-5 pt-4 border-t border-border flex items-center justify-between">
+      {/* Footer */}
+      <div className="mt-auto pt-3 border-t border-border-subtle flex items-center justify-between">
         <span className="text-xs font-medium text-text-muted group-hover:text-text-secondary transition-colors">
-          {hasSummary ? "Read full summary" : "Pending"}
+          {hasSummary ? "Read more" : "Pending"}
         </span>
-        <div className="flex items-center gap-1 text-text-muted group-hover:text-accent transition-colors">
-          <span className="text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Open
-          </span>
-          <svg
-            className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-1"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            />
-          </svg>
-        </div>
+        <svg
+          className="h-4 w-4 text-text-muted group-hover:text-accent transition-all duration-300 group-hover:translate-x-1"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"
+          />
+        </svg>
       </div>
-
-      {/* Hover glow effect */}
-      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/5 pointer-events-none" />
     </article>
   );
 }
